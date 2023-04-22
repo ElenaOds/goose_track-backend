@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 
 dotenv.config({ path: './.env' })
 
-const { MONGO_URL, PORT = 3001 } = process.env;
+const { MONGO_URL, PORT = 3000 } = process.env;
 
 
 mongoose
