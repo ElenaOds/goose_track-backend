@@ -8,13 +8,6 @@ dotenv.config({ path: './.env' })
 const { MONGO_URL, PORT = 3001 } = process.env;
 
 
-// const port = process.env.PORT || 4000;
-
-// app.listen(port, () => {
-//   console.log(`Server running. Use our API on port: ${port}`)
-// })
-
-
 mongoose
   .connect(MONGO_URL,{
       dbName: 'db-users',
