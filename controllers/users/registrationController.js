@@ -9,9 +9,15 @@ module.exports = {
         password
     } = req.body;
 
-    await registration(name, email, password);
+       const{ token, newUser} = await registration(name, email, password);
+        
     res.status(201).json({
-        "message": "registration success"
+        token,
+        user: {
+            name: newUser.name,
+            email: newUser.email,
+
+        }
     });
 }
     

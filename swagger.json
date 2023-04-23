@@ -44,7 +44,13 @@
         "responses": {
           "201": {
             "description": "registration success",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
           },
           "409": {
             "description": "Email '${email}' is already in use",
@@ -157,6 +163,30 @@
             "example": "1234qwerl"
           }
         }
+      },"RegistrationResponse":{
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Session's access token (needed for all requests)",
+            "format": "string"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "User name",
+                "example": "name"
+              },
+              "email": {
+                "type": "string",
+                "description": "User email",
+                "example": "email"
+              }
+            }
+          }
+        }
       },
       "LoginRequest": {
         "required": ["email", "password"],
@@ -185,7 +215,12 @@
           "user": {
             "type": "object",
             "properties": {
-              "user": {
+                "name": {
+                "type": "string",
+                "description": "User name",
+                "example": "name"
+              },
+              "email": {
                 "type": "string",
                 "description": "User email",
                 "example": "email"
