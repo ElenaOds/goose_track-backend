@@ -20,6 +20,17 @@ const registration = async (name, email, password) => {
     });
     await createdUser.save();
 
+    const newUser = await User.findOne({ email });
+    
+    const token= jwt.sign({
+        _id: newUser._id,
+        createdAt: newUser.createdAt
+    }, process.env.JWT_SECRET);
+
+    const userData = { token, newUser };
+
+    return userData;
+
     // const verificationCode = uuidv4();
 
     // const verification = new UserVerification({
@@ -39,7 +50,6 @@ const registration = async (name, email, password) => {
 
     // await sgMail.send(msg);
     
-    return createdUser;
 
 }
 

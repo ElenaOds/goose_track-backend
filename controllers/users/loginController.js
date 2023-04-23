@@ -12,7 +12,9 @@ module.exports={
     res.status(200).json({
         token,
         user: {
-            user: user.email,
+            name: user.name,
+            email: user.email,
+
         }
     });
 
