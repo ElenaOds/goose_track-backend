@@ -1,11 +1,14 @@
 const {addUserValidation } = require("./validation/addUserValidation");
 const { loginUserValidation } = require("./validation/loginUserValidation");
 const { authMiddleware } = require("./authMiddleware/authMiddleware");
+const { addTaskValidation } = require("./validation/addTaskValidation");
+const { updateTaskValidation } = require("./validation/updateTaskValidation");
 
 
 module.exports= {
     addUserValidation,
     loginUserValidation,
-    authMiddleware
- 
+    authMiddleware,
+    addTaskValidation,
+    updateTaskValidation,
 }
