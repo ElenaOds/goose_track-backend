@@ -6,17 +6,12 @@ const dotenv = require('dotenv');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 
+
 const { authRouter } = require('./routes/api/auth');
 const { usersRouter } = require('./routes/api/users');
-
-// const mongoose = require('mongoose');
+const { tasksRouter } = require('./routes/api/tasks');
 
 dotenv.config({ path: './.env'});
-
-// const usersRouter = require('./routes/api/users');
-// const authRouter = require('./routes/api/auth');
-// const tasksRouter = require('./routes/api/tasks');
-// const columnsRouter = require('./routes/api/columns');
 
 const app = express();
 
@@ -31,12 +26,9 @@ app.use(express.json());
 // app.use(express.static('public'));
 
 
-
 app.use('/api/auth', authRouter);
 app.use('/api/user', usersRouter);
-
-// app.use('/api/tasks', tasksRouter);
-// app.use('/api/columns', columnsRouter);
+app.use('/api/tasks', tasksRouter);
 
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
