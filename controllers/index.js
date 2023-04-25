@@ -2,7 +2,7 @@ const { registrationController } = require("./users/registrationController");
 const { loginController } = require("./users/loginController");
 const { currentUserController } = require("./users/currentUserController");
 const { logoutController } = require("./users/logoutController");
-const { updateInfoController } = require("./users/updateInfoController");
+const { infoController } = require("./users/infoController");
 
 // const { uploadAvatarController } = require("./uploadAvatarController");
 // const { verificationController } = require("./verificationController");
@@ -13,7 +13,7 @@ module.exports = {
   loginController,
   currentUserController,
   logoutController,
-  updateInfoController,
+  infoController,
 
   // currentUserController,
   // uploadAvatarController,
