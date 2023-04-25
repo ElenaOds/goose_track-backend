@@ -5,6 +5,9 @@ const tasksSchema = new mongoose.Schema( {
       type: String,
       required: [true, 'Type text'],
     },
+    date: {
+      type: Date,
+    },
     start: {
       type: String,
       required: [true, 'Please choose start time'],
