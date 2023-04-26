@@ -5,7 +5,7 @@ module.exports = {
         const { _id: owner } = req.user;
             await User.findByIdAndUpdate( owner, { token: "" });
 
-        res.json({
+        res.status(200).json({
             message: "Logout success",
         });
     }

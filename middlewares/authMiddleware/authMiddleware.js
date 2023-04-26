@@ -21,7 +21,7 @@ const authMiddleware = async (req, res, next) => {
      
     
         if (!existingUser) {
-            next(new NotAuthorizedError('Not authorized- invalide token'));
+            next(new NotAuthorizedError('Not authorized user'));
         }
 
         req.user = existingUser;
@@ -30,7 +30,7 @@ const authMiddleware = async (req, res, next) => {
         next();
 
     } catch (error) {
-        next(new NotAuthorizedError('Invalide token'));
+        next(new NotAuthorizedError('Invalid token'));
 
     }
 }

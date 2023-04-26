@@ -1,0 +1,270 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "version": "1.0.0",
+    "title": "API documentation for Goosetrack-backend",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "consumes": ["application/json", "multipart/form-data"],
+  "produces": ["application/json"],
+  "servers": [
+    {
+      "url": "http:localhost:3000/api/v1"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authorization endpoints"
+    },
+    {
+      "name": "User info",
+      "description": "Users endpoints"
+    }
+  ],
+  "paths": {
+    "/api/auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User registration",
+        "requestBody": {
+          "description": "Registration body",
+          "required": "true",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "registration success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Email '${email}' is already in use",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User login",
+        "requestBody": {
+          "description": "Login body",
+          "required": "true",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "login success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Email or password is wrong",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/user/current": {
+      "get": {
+        "tags": ["User info"],
+        "summary": "All information about user",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "current user information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInformationResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized-no valid token/Not authorized user",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/user/logout": {
+      "post": {
+        "tags": ["User info"],
+        "summary": "User logout",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Logout success",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized-no valid token/Not authorized user",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "RegistrationRequest": {
+        "type": "object",
+        "required": ["name", "email", "password"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Peter Petigry"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "1234qwerl"
+          }
+        }
+      },"RegistrationResponse":{
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Session's access token (needed for all requests)",
+            "format": "string"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "User name",
+                "example": "name"
+              },
+              "email": {
+                "type": "string",
+                "description": "User email",
+                "example": "email"
+              }
+            }
+          }
+        }
+      },
+      "LoginRequest": {
+        "required": ["email", "password"],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "1234qwer"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Session's access token (needed for all requests)",
+            "format": "string"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+                "name": {
+                "type": "string",
+                "description": "User name",
+                "example": "name"
+              },
+              "email": {
+                "type": "string",
+                "description": "User email",
+                "example": "email"
+              }
+            }
+          }
+        }
+      },
+      "UserInformationResponse":{
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Peter Petigry"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "phone": {
+            "type": "string",
+            "description": "User's phone",
+            "example": "3806972563477"
+          },
+          "birthday":{
+            "type": "string",
+            "description": "User's birthday",
+            "example": "25081995"
+          },
+          "skype":{
+            "type": "string",
+            "description": "User's skype nickname",
+            "example": "nickname"
+          },
+          "userPhoto":{
+            "type": "string",
+            "description": "User's photo url",
+            "example": "https://cloudinary.com/userphoto"
+          }
+        }
+      }
+    }
+    }
+}
+

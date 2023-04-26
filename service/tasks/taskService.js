@@ -1,0 +1,24 @@
+const { Tasks } = require('./taskSchema');
+
+const addTask = async ({title, start, end, priority}, owner) => {
+    return Tasks.create({ title, start, end, priority, owner });
+}
+
+const updateTask = async (taskId, body, owner) => {
+    return Tasks.findByIdAndUpdate({  _id: taskId, owner }, body, { new: true });
+}
+
+const removeTask = async (taskId, owner) => {
+    return Tasks.findByIdAndRemove({ _id: taskId, owner });
+}
+
+const tasksList = async ( owner) => {
+    return Tasks.find({ owner }).select('-__v')
+}
+
+module.exports = {
+    addTask,
+    updateTask,
+    removeTask,
+    tasksList
+}
