@@ -1,24 +1,15 @@
 const { User } = require("../../service/users/userSchema");
-const path = require("path");
-const fs = require("fs/promises");
-const Jimp = require("jimp");
-
-const userPhotosDir = path.join(__dirname, "../../", "public", "userPhotos");
 
 module.exports = {
   updateInfoController: async (req, res) => {
     const { _id } = req.user;
     const { name, email, phone, birthday, skype } = req.body;
-    const { path: tempUpload, originalname } = req.file;
-    const imgName = `${_id}_${originalname}`;
+    let userPhotoURL;
     try {
-      const resultUpload = path.join(userPhotosDir, imgName);
-      Jimp.read(tempUpload, (error, img) => {
-        if (error) throw error;
-        img.resize(124, 124).quality(60).write(resultUpload);
-      });
-      await fs.rename(tempUpload, resultUpload);
-      const userPhotoURL = path.join("public", "userPhotos", imgName);
+      if (req.file) {
+        userPhotoURL = req.file.path;
+      }
+
       await User.findByIdAndUpdate(_id, {
         name,
         email,
@@ -40,7 +31,6 @@ module.exports = {
         },
       });
     } catch (error) {
-      await fs.unlink(tempUpload);
       throw error;
     }
   },
