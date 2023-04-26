@@ -7,6 +7,7 @@ const tasksSchema = new mongoose.Schema( {
     },
     date: {
       type: Date,
+      required: true,
     },
     start: {
       type: String,
