@@ -2,7 +2,7 @@ const express = require("express");
 const router = new express.Router();
 
 const { asyncWrapper } = require("../../helpers/index");
-const { authMiddleware, upload } = require("../../middlewares/index");
+const { authMiddleware, uploadCloud } = require("../../middlewares/index");
 
 const {
   currentUserController,
@@ -15,7 +15,7 @@ router.post("/logout", authMiddleware, asyncWrapper(logoutController));
 router.patch(
   "/info",
   authMiddleware,
-  upload.single("userPhoto"),
+  uploadCloud.single("userPhoto"),
   asyncWrapper(updateInfoController)
 );
 
