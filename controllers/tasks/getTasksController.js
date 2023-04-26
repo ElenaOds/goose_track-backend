@@ -1,11 +1,11 @@
-const { tasksList } = require("../../service/tasks/taskService");
-
+const { Tasks } = require("../../service/tasks/taskSchema")
 
 const getTasksController = async (req, res, next) => {
     const { _id: owner } = req.user;
-    const { page = 1, limit = 20 } = req.query;
+    const {dateFrom, dateTo } = req.query;
+   
+    const tasks =  await Tasks.find({ owner, date: {$gte: dateFrom, $lte: dateTo}});
 
-    const tasks = await tasksList(owner);
     res.status(200).json({tasks});
 };
 
