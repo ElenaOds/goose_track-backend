@@ -12,7 +12,7 @@
   "produces": ["application/json"],
   "servers": [
     {
-      "url": "http:localhost:3000/api/v1"
+      "url": "https://goose-track-backend.onrender.com"
     }
   ],
   "tags": [
@@ -23,7 +23,11 @@
     {
       "name": "User info",
       "description": "Users endpoints"
-    }
+    },
+      {
+        "name": "Tasks",
+        "description": "Tasks endpoints"
+      }
   ],
   "paths": {
     "/api/auth/register": {
@@ -43,7 +47,7 @@
         },
         "responses": {
           "201": {
-            "description": "registration success",
+            "description": "Registration success",
             "content": {
               "application/json": {
                 "schema": {
@@ -76,7 +80,7 @@
         },
         "responses": {
           "200": {
-            "description": "login success",
+            "description": "Login success",
             "content": {
               "application/json": {
                 "schema": {
@@ -103,7 +107,7 @@
         ],
         "responses": {
           "200": {
-            "description": "current user information",
+            "description": "Current user information",
             "content": {
               "application/json": {
                 "schema": {
@@ -139,6 +143,164 @@
           }
         }
       }
+    },
+    "/api/tasks ": {
+      "get": {
+        "tags": ["Tasks"],
+        "summary": "Get all tasks by user ID",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tasks list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TasksListResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized-no valid token/Not authorized user",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/tasks": {
+      "post": {
+        "tags": ["Tasks"],
+        "summary": "Add new task",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Add new task body",
+          "required": "true",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddTaskRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "New task body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddTaskResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized-no valid token/Not authorized user",
+            "content": {}
+          },
+          "400": {
+            "description": "Request validation error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/tasks/{taskId} ": {
+      "patch": {
+        "tags": ["Tasks"],
+        "summary": "Update task",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "taskId",
+            "required": true,
+            "description": "Task id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Update task body",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTaskRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated task body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateTaskResponse"
+                }
+              }
+            }
+          },
+
+          "400": {
+            "description": "Request validation error",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized-no valid token/Not authorized user",
+            "content": {}
+          },
+          "404": {
+            "description": "Task with id (request id) was not  found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/tasks/{taskId}": {
+      "delete": {
+        "tags": ["Tasks"],
+        "summary": "Delete task by id",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "taskId",
+            "required": true,
+            "description": "Task id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task is deleted",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized-no valid token/Not authorized user",
+            "content": {}
+          }
+        }
+      }
     }
   },
   "components": {
@@ -159,7 +321,7 @@
           },
           "password": {
             "type": "string",
-            "description": "User's password",
+            "description": "User's password. Min 5, max 20 characters , 1 upper case letter, 1 lower case letter, 1 numeric digit",
             "example": "1234qwerl"
           }
         }
@@ -263,8 +425,209 @@
             "example": "https://cloudinary.com/userphoto"
           }
         }
+      },
+      "TasksListResponse":{
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties":{
+            "_id": {
+              "type": "string",
+              "example": "6447c0d3759f6d5812ba43cc"
+            },
+            "title": {
+              "type": "string",
+              "example": "Meeting with EPAM Recruiter"
+            },
+            "date": {
+              "type": "string",
+              "example": "2023-04-25T00:00:00.000+00:00"
+            },
+            "start": {
+              "type": "string",
+              "example": "09:15"
+            },
+            "end": {
+              "type": "string",
+              "example": "10:15"
+            },
+            "priority": {
+              "type": "string",
+              "example": "low"
+            },
+            "column": {
+              "type": "string",
+              "example": "To do"
+            },
+            "owner": {
+              "type": "string",
+              "example": "64459b53c66e5b360e408983"
+            },
+            "createdAt": {
+              "type": "string",
+              "example": "2023-04-25T12:00:19.363+00:00"
+            },
+            "updatedAt": {
+              "type": "string",
+              "example": "2023-04-25T12:00:19.363+00:00"
+            }
+          }
+        }
+      },
+      "AddTaskRequest":{
+        "required": ["title", "date", "start","end", "priority"],
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Name of the task",
+            "example": "Get an offer from EPAM"
+          },
+          "date": {
+            "type": "string",
+            "description": "The date when task should be done",
+            "example": "2023-05-18"
+          },
+          "start": {
+            "type": "string",
+            "description": "The time when task should be started",
+            "example": "09:30"
+          },
+          "end": {
+            "type": "string",
+            "description": "The time when task should be ended",
+            "example": "10:30"
+          },
+          "priority": {
+            "type": "string",
+            "description": "Task priority. One of these: low, medium, high",
+            "example": "high"
+          }
+        }
+      },
+      "AddTaskResponse":{
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Get an offer from EPAM"
+          },
+          "date": {
+            "type": "string",
+            "example": "2023-05-18"
+          },
+          "start": {
+            "type": "string",
+            "example": "09:30"
+          },
+          "end": {
+            "type": "string",
+            "example": "10:30"
+          },
+          "priority": {
+            "type": "string",
+            "example": "high"
+          },
+          "column": {
+            "type": "string",
+            "example": "To do"
+          },
+          "owner": {
+            "type": "string",
+            "example": "64459b53c66e5b360e408983"
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "2023-04-25T12:00:19.363+00:00"
+          },
+          "updatedAt": {
+            "type": "string",
+            "example": "2023-04-25T12:00:19.363+00:00"
+          }
+        }
+      },
+      "UpdateTaskRequest":{
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Name of the task",
+            "example": "Get an offer from EPAM"
+          },
+          "date": {
+            "type": "string",
+            "description": "The date when task should be done",
+            "example": "2023-05-18"
+          },
+          "start": {
+            "type": "string",
+            "description": "The time when task should be started",
+            "example": "09:30"
+          },
+          "end": {
+            "type": "string",
+            "description": "The time when task should be ended",
+            "example": "10:30"
+          },
+          "priority": {
+            "type": "string",
+            "description": "Task priority. One of these: low, medium, high",
+            "example": "high"
+          },
+          "column":{
+            "type": "string",
+            "description": "Task's state",
+            "example": "In progress"
+          }
+        }
+      },
+      "UpdateTaskResponse":{
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "6449156e7504f5b2e5ecd195"
+          },
+          "title": {
+            "type": "string",
+            "example": "Get an offer from EPAM"
+          },
+          "date": {
+            "type": "string",
+            "example": "2023-05-18"
+          },
+          "start": {
+            "type": "string",
+            "example": "09:30"
+          },
+          "end": {
+            "type": "string",
+            "example": "10:30"
+          },
+          "priority": {
+            "type": "string",
+            "example": "high"
+          },
+          "column": {
+            "type": "string",
+            "example": "In progress"
+          },
+          "owner": {
+            "type": "string",
+            "example": "64459b53c66e5b360e408983"
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "2023-04-26T12:13:34.763Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "example": "2023-04-26T12:47:17.165Z"
+          }
+        }
       }
     }
-    }
+  }
 }
+
 
