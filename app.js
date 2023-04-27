@@ -17,7 +17,6 @@ const app = express();
 
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short'
 
-// app.set('view engine', 'pug');
 
 
 app.use(logger(formatsLogger));

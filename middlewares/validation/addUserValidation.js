@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,20}$/;
+const PASSWD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,20}$/;
 // min 5 max 20 characters , 1 upper case letter, 1 lower case letter, 1 numeric digit
 
 module.exports = {
@@ -9,15 +9,12 @@ module.exports = {
             name: Joi.string()
                  .required(),
             email: Joi.string()
-                .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
+                .email({ tlds: { allow: false } })
                 .required(),
             password: Joi.string()
                 .min(5)
                 .max(20)
-                .matches(
-                    passwordRules,
-                    'Password must contain uppper case letter and numbers'
-                )
+                .regex(PASSWD_REGEX)
                 .required(),
         });
 

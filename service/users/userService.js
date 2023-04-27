@@ -30,27 +30,6 @@ const registration = async (name, email, password) => {
     const userData = { token, newUser };
 
     return userData;
-
-    // const verificationCode = uuidv4();
-
-    // const verification = new UserVerification({
-    //     code: verificationCode,
-    //     userId: createdUser._id,
-    // })
-
-    // await verification.save();
-
-    // const msg = {
-    //     to: email,
-    //     from: 'sandbox.mailing@meta.ua',
-    //     subject: 'Please, verify your email',
-    //     text: 'Please, verify your email',
-    //     html:`<h1>It is almost ready!</h1> <p>Please, go on this <a href="http://localhost:3000/users/verify/${verificationCode}">link</a> for completing the registration</p>`, 
-    // }
-
-    // await sgMail.send(msg);
-    
-
 }
 
 
@@ -60,10 +39,6 @@ const login = async (email, password) => {
     if (!user || ! await bcrypt.compare(password, user.password)) {
         throw new NotAuthorizedError("Email or password is wrong");
     }
-
-    // if (user.verify !== true) {
-    //     throw new NotAuthorizedError("You need to confirm your registration");
-    // }
 
  
     const token= jwt.sign({
@@ -82,8 +57,5 @@ const login = async (email, password) => {
 module.exports = {
     registration,
     login
-
-    // registrationConfirmation,
-    // resendingConfirmation
  
 }

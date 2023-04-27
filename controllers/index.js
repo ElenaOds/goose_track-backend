@@ -8,8 +8,6 @@ const { updateTaskController } = require("./tasks/updateTaskController");
 const { deleteTaskController } = require("./tasks/deleteTaskController");
 const { getTasksController } = require("./tasks/getTasksController");
 
-// const { verificationController } = require("./verificationController");
-// const { resendingController } = require("./resendingController");
 
 module.exports = {
   registrationController,
@@ -21,8 +19,4 @@ module.exports = {
   updateTaskController,
   deleteTaskController,
   getTasksController,
-
-  // currentUserController,
-  // verificationController,
-  // resendingController
 };

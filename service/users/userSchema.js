@@ -21,14 +21,6 @@ const userSchema = new mongoose.Schema({
     skype: String,
     userPhoto:String,
     
-    // verify: {
-    //     type: Boolean,
-    //     default: false,
-    // },
-    // verificationToken: {
-    //     type: String,
-    //     required: [true, 'Verify token is required'],
-    // },
     token: String,
     
 
