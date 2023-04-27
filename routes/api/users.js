@@ -2,7 +2,7 @@ const express = require("express");
 const router = new express.Router();
 
 const { asyncWrapper } = require("../../helpers/index");
-const { authMiddleware, uploadCloud } = require("../../middlewares/index");
+const { authMiddleware, uploadCloud, updateUserValidation } = require("../../middlewares/index");
 
 const {
   currentUserController,
@@ -10,12 +10,11 @@ const {
   updateInfoController,
 } = require("../../controllers/index");
 
-router.get("/current", authMiddleware, asyncWrapper(currentUserController));
-router.post("/logout", authMiddleware, asyncWrapper(logoutController));
-router.patch(
-  "/info",
-  authMiddleware,
-  uploadCloud.single("userPhoto"),
+router.use(authMiddleware);
+
+router.get("/current", asyncWrapper(currentUserController));
+router.post("/logout", asyncWrapper(logoutController));
+router.patch("/info",  updateUserValidation, uploadCloud.single("userPhoto"),
   asyncWrapper(updateInfoController)
 );
 

@@ -17,9 +17,9 @@ const userSchema = new mongoose.Schema({
         required: [true, 'Set password for user'],
     },
     phone: String,
-    birthday: String,
+    birthday: Date,
     skype: String,
-    userPhoto:String,
+    userPhoto: String,
     
     token: String,
     

@@ -4,6 +4,7 @@ const { authMiddleware } = require("./authMiddleware/authMiddleware");
 const { uploadCloud } = require("./uploadMiddleware/uploadMiddleware");
 const { addTaskValidation } = require("./validation/addTaskValidation");
 const { updateTaskValidation } = require("./validation/updateTaskValidation");
+const { updateUserValidation } = require("./validation/updateUservalidation");
 
 module.exports = {
   addUserValidation,
@@ -12,4 +13,5 @@ module.exports = {
   addTaskValidation,
   updateTaskValidation,
   uploadCloud,
+  updateUserValidation
 };
