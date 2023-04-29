@@ -33,7 +33,9 @@ const tasksSchema = new mongoose.Schema( {
     }
 },
 
+{ versionKey: false, timestamps: true},
 );
+
   
 const Tasks = mongoose.model('tasks', tasksSchema);
 
