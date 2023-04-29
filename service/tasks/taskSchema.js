@@ -25,7 +25,7 @@ const tasksSchema = new mongoose.Schema( {
     column: {
       type: String,
       enum: ['To do', 'In progress', 'Done'],
-      required: true,
+      default: 'To do',
     },
     owner: {
       type: mongoose.SchemaTypes.ObjectId,
