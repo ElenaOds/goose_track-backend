@@ -25,14 +25,13 @@ const tasksSchema = new mongoose.Schema( {
     column: {
       type: String,
       enum: ['To do', 'In progress', 'Done'],
-      default: 'To do',
+      required: true,
     },
     owner: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: "user",
     }
 },
-    { versionKey: false, timestamps: true},
 
 );
   

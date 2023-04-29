@@ -13,6 +13,7 @@ module.exports = {
             start: Joi.string().regex(/^([01]\d|2[0-3]):?([0-5]\d)$/).required(),
             end: Joi.string().regex(/^([01]\d|2[0-3]):?([0-5]\d)$/).required(),
             priority: Joi.string().valid("low", "medium", "high").required(),
+            column: Joi.string().valid("To do", "In progress", "Done").required()
         });
 
         const validationResult = schema.validate(req.body);
