@@ -22,7 +22,7 @@ module.exports = {
             skype: Joi.string()
                 .min(1)
                 .max(20),
-            
+            userPhoto: Joi.string(),
         });
 
     const validationResult = schema.validate(req.body);
