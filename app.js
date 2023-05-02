@@ -38,6 +38,7 @@ app.all('*', (req, res) => {
 });
 
 app.use((error, req, res, next) => {
+  console.log(error);
   const msg = Array.isArray(error.message) ? error.message.join(';') : error.message;
   
    res.status(error.status || 500).json({ 
