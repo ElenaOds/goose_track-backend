@@ -11,7 +11,7 @@ module.exports = {
             phone: user.phone,
             birthday: user.birthday,
             skype: user.skype,
-            userPhoto:user.userPhoto,
+            userPhoto: user.userPhoto,
             
         });
     }

@@ -11,15 +11,17 @@ cloudinary.config({
 
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
-  params: {
-    folder: "userPhotos",
-    allowedFormats: ["jpg", "png"],
-  },
+  folder: "userPhotos",
+  allowedFormats: ["jpg", "png", "gif", "jpeg"],
+
   filename: (req, file, cb) => {
     cb(null, file.originalname);
   },
 });
 
-const uploadCloud = multer({ storage });
+const uploadCloud = multer({ 
+  storage,
+  limits: { fileSize: 2 * 1024 * 1024 }, 
+});
 
 module.exports = { uploadCloud };
