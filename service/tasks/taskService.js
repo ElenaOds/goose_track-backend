@@ -1,7 +1,7 @@
 const { Tasks } = require('./taskSchema');
 
-const addTask = async ({title, date, start, end, priority}, owner) => {
-    return Tasks.create({ title, date, start, end, priority, owner });
+const addTask = async ({title, date, start, end, priority, column}, owner) => {
+    return Tasks.create({ title, date, start, end, priority, column, owner });
 }
 
 const updateTask = async (taskId, body, owner) => {
