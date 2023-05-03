@@ -22,8 +22,9 @@ const userSchema = new mongoose.Schema({
       default: ''
     },
     birthday: {
-      type: String,
-      default: currentDay,
+      type: Date,
+      default: currentDay
+
     },
     skype: {
       type: String,
