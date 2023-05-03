@@ -18,7 +18,8 @@ module.exports = {
                 .regex(PASSWD_REGEX),
             phone: Joi.string().regex(PHONE_REGEX),
             birthday: Joi.date()
-            .format('YYYY-MM-DD'),
+                .format('YYYY-MM-DD')
+                .max(new Date()),
             skype: Joi.string()
                 .min(1)
                 .max(20),

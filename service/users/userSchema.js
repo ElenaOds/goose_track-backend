@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+const currentDay = new Date();
 
 const userSchema = new mongoose.Schema({
 
@@ -16,12 +17,28 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Set password for user'],
     },
-    phone: String,
-    birthday: Date,
-    skype: String,
-    userPhoto: String,
+    phone: {
+      type: String,
+      default: ''
+    },
+    birthday: {
+      type: Date,
+      default: currentDay
+
+    },
+    skype: {
+      type: String,
+      default: ''
+    },
+    userPhoto: {
+      type: String,
+      default: null,
+    },
     
-    token: String,
+    token:  {
+      type: String,
+      default: null,
+    },
     
 
 },
