@@ -123,6 +123,37 @@
         }
       }
     },
+    "/api/user/info": {
+      "patch": {
+        "tags": ["User info"],
+        "summary": "Update information about user",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInformationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized-no valid token/Not authorized user",
+            "content": {}
+          }
+        }
+      }
+    },
     "/api/user/logout": {
       "post": {
         "tags": ["User info"],
